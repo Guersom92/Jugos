@@ -14,6 +14,42 @@ botonCalculador.onclick= function() {
 }
 
 
+
+
+//Funcion que determina las papayas necesarias
+function CalcularPapayas(tamaño,papaya,surtido,especial){
+    if(tamaño=="mediana"){
+    return (!Number.isInteger((papaya*6+surtido*3+especial*3)/27)?((papaya*6+surtido*3+especial*3)/27).toFixed(2):(papaya*6+surtido*3+especial*3)/27) + " papayas"
+    }  
+
+}
+//Funcion que determina las piñas necesarias
+function CalcularPiñas(tamaño,piña,surtido){
+    if(tamaño=="mediana"){
+        return (!Number.isInteger((surtido*2)/20+ (piña/3))? ((surtido*2)/20+ (piña/3)).toFixed(2):(surtido*2)/20+ (piña/3)) + " piñas"
+    }  
+
+}
+//Funcion que determina las manzanas necesarias
+function CalcularManzanas(surtido,especial){
+    return Math.ceil((surtido/10)+(especial/10)) + " manzanas"
+}
+
+//Funcion que determina los plátanos necesarios
+function CalcularPlatanos(surtido,especial){
+    return Math.ceil((surtido/5)+((especial*2)/5)) + " plátanos"
+}
+
+//Funcion que determina las beterragas necesarias
+function CalcularBeterragas(surtido){
+    if(surtido>70){
+    return "2 beterragas grandes o 3 medianas "  
+    }
+    else{
+    return "2 beterragas medianas "  
+    }
+}
+
 // Función que determina qué comprar
 
 function calc(){
@@ -34,41 +70,27 @@ function calc(){
     var totalManzanas= CalcularManzanas(surtidoJugo,especialJugo)
     var totalPlatanos= CalcularPlatanos(surtidoJugo,especialJugo)
     var totalBeterragas= CalcularBeterragas(surtidoJugo)
+    var lista= [totalPapayas,totalPiñas,totalManzanas, totalPlatanos]
+    surtidoJugo!=0 || surtidoJugo!=""? lista.push(totalBeterragas):0 
+    var texto;
+
+    
     //Haciendo la orden
-    orden.innerHTML="Compra "+ totalPapayas +" papayas, " +totalPiñas+" piñas, "+totalManzanas+" manzanas, "+totalPlatanos+" plátanos y "+totalBeterragas
+    for (let i = 0; i < lista.length; i++) {
+        if(lista[i][0]==0) continue
+        if((i + 1) == (lista.length)){
+            texto+=" y "+ lista[i]
+            break
+        }
+        if(i==0){
+            texto= "Compra ";
+            texto += lista[i] ;
+            
+        }
+        else{
+            texto += ", "+lista[i] ;
+        }
+      }
+    orden.innerHTML=texto
  
-}
-
-//Funcion que determina las papayas necesarias
-function CalcularPapayas(tamaño,papaya,surtido,especial){
-    if(tamaño=="mediana"){
-    return !Number.isInteger((papaya*6+surtido*3+especial*3)/27)?((papaya*6+surtido*3+especial*3)/27).toFixed(2):(papaya*6+surtido*3+especial*3)/27
-    }  
-
-}
-//Funcion que determina las piñas necesarias
-function CalcularPiñas(tamaño,piña,surtido){
-    if(tamaño=="mediana"){
-        return !Number.isInteger((surtido*2)/20+ (piña/3))? ((surtido*2)/20+ (piña/3)).toFixed(2):(surtido*2)/20+ (piña/3)
-    }  
-
-}
-//Funcion que determina las manzanas necesarias
-function CalcularManzanas(surtido,especial){
-    return Math.ceil((surtido/10)+(especial/10))
-}
-
-//Funcion que determina los plátanos necesarios
-function CalcularPlatanos(surtido,especial){
-    return Math.ceil((surtido/5)+((especial*2)/5))
-}
-
-//Funcion que determina las beterragas necesarias
-function CalcularBeterragas(surtido){
-    if(surtido>70){
-    return "2 beterragas grandes o 3 medianas "  
-    }
-    else{
-    return "2 beterragas medianas "  
-    }
 }
